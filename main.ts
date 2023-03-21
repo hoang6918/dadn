@@ -4,24 +4,30 @@ function DHT20 () {
     DigitalPin.P1,
     true,
     false,
-    true
+    false
     )
     dht11_dht22.selectTempType(tempType.celsius)
-    NPNLCD.ShowNumber(dht11_dht22.readData(dataType.temperature), 0, 0)
-    NPNLCD.ShowNumber(dht11_dht22.readData(dataType.humidity), 0, 1)
+    if (dht11_dht22.readDataSuccessful()) {
+        NPNLCD.clear()
+        NPNLCD.ShowString("Temperature" + dht11_dht22.readData(dataType.temperature) + "C", 0, 0)
+        NPNLCD.ShowString("Humidity" + dht11_dht22.readData(dataType.humidity) + "%", 0, 1)
+    }
+    basic.pause(2000)
 }
 function TEMP_AND_FAN () {
     if (input.temperature() >= 35) {
         basic.showNumber(input.temperature())
-        basic.showString("Hot")
+        basic.showString("Too hot")
         pins.digitalWritePin(DigitalPin.P6, 1)
         basic.clearScreen()
     } else if (input.temperature() <= 12) {
         basic.showNumber(input.temperature())
-        basic.showString("Cold")
+        basic.showString("Too Cold")
+        pins.digitalWritePin(DigitalPin.P6, 0)
         basic.clearScreen()
     } else {
         basic.showNumber(input.temperature())
+        pins.digitalWritePin(DigitalPin.P6, 0)
         basic.clearScreen()
     }
     basic.pause(2000)
