@@ -6,6 +6,7 @@ function DHT20 () {
     false,
     true
     )
+    dht11_dht22.selectTempType(tempType.celsius)
     NPNLCD.ShowNumber(dht11_dht22.readData(dataType.temperature), 0, 0)
     NPNLCD.ShowNumber(dht11_dht22.readData(dataType.humidity), 0, 1)
 }
@@ -45,6 +46,7 @@ WiFiBit.connectToWiFiNetwork("SSID", "key")
 ESP8266_IoT.adafruit_setting("tringuyennek", "123456789")
 NPNLCD.LcdInit(39)
 NPNLCD.on()
+NPNLCD.BacklightOn()
 let temp = input.temperature()
 basic.forever(function () {
     NPNLCD.clear()
