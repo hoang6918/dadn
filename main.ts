@@ -13,6 +13,7 @@ function TEMP_AND_FAN () {
     if (input.temperature() >= 35) {
         basic.showNumber(input.temperature())
         basic.showString("Hot")
+        pins.digitalWritePin(DigitalPin.P6, 1)
         basic.clearScreen()
     } else if (input.temperature() <= 12) {
         basic.showNumber(input.temperature())
